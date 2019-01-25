@@ -19,8 +19,9 @@ function clean () {
   return del([config.htmlout + '*'])
 }
 
-function reload () {
+function reload (cb) {
   browserSync.reload()
+  cb()
 }
 
 function html () {
@@ -55,10 +56,10 @@ function serve () {
     server: config.htmlout
   })
 
-  gulp.watch(config.jsin, () => gulp.series(babl, reload))
-  gulp.watch(config.cssin, () => gulp.series(css, reload))
-  gulp.watch(config.htmlin, () => gulp.series(html, reload))
-  gulp.watch(config.assetsin, () => gulp.series(assets, reload))
+  gulp.watch(config.jsin, gulp.series(babl, reload))
+  gulp.watch(config.cssin, gulp.series(css, reload))
+  gulp.watch(config.htmlin, gulp.series(html, reload))
+  gulp.watch(config.assetsin, gulp.series(assets, reload))
 }
 
 function build (cb) {
