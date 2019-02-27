@@ -9,7 +9,7 @@
   <script src="js/main.js" ></script>
 </head>
 
-<body">
+<body>
   <nav id="navbar">
     <header><span class="HR3">Contents</span></header>
     <ol>
@@ -415,7 +415,7 @@ scope.$broadcast(
           scope.$broadcast('schemaForm.error.name','usernameAlreadyTaken',false);
         </pre>
       </code>
-      <p>You can even trigger standard tv4 error messages, just prefix the error code with <span class="pre">tv4-</span></p></p>
+      <p>You can even trigger standard tv4 error messages, just prefix the error code with <span class="pre">tv4-</span></p>
       <code>
         <pre>
 //Shows the "Required" error message
@@ -437,7 +437,6 @@ $broadcast('schemaForm.error.name',
         you can use a shorthand by adding <span class="pre">$validators</span> and <span class="pre">$asyncValidators</span> objects as well as <span class="pre">$viewChangeListener</span>,
         <span class="pre">$parsers</span> and <span class="pre">$formatters</span> arrays to your form object and they will be picked up.</p>
       <p>Note that <span class="pre">$validators</span> and <span class="pre">$asyncValidators</span> are Angular 1.3+ only.</p>
-      </p>
     </section>
 
     <section id="$validators" class="main-section">
