@@ -1,4 +1,7 @@
 const gulp = require('gulp')
+const sass = require('gulp-sass')
+const sourcemaps = require('gulp-sourcemaps')
+const babel = require('gulp-babel')
 const browserSync = require('browser-sync')
 const del = require('del')
 

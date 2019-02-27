@@ -1,0 +1,143 @@
+:root {
+    --main-bg: rgb(218, 158, 80);
+    --nav-col: rgb(238, 232, 241);
+    --body-bg: rgb(172, 64, 22);
+    --code-bg: rgb(214, 207, 207);
+    --nav-width: 270px;
+    --table-bg: rgb(168, 202, 141);
+    --td-bg: rgb(110, 185, 182);
+    --nav-hover-bg: rgb(46, 252, 190);
+}
+
+body {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--body-bg);
+}
+
+#main-doc {
+    background-color: var(--main-bg);
+    padding: 0 15px;
+    overflow-x: hidden;
+}
+
+#navbar {
+    color: var(--nav-col);
+}
+
+#navbar header {
+    padding: 40px 0 0 40px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--nav-col);
+}
+
+a:hover {
+    color: var(--nav-hover-bg);
+}
+
+#navbar a {
+    font-weight: 600;
+}
+
+section {
+    padding-top: 10px;
+}
+
+table {
+    padding: 5px;
+    background-color: var(--table-bg);
+}
+
+thead {
+    font-weight: bold;
+}
+
+td {
+    padding: 5px 15px 25px 15px;
+    background-color: var(--td-bg);
+    vertical-align: top;
+}
+
+span.pre {
+    padding: 0 3px;
+}
+
+code pre, .pre {
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 15px;
+    width: 70%;
+    background-color: var(--code-bg);
+}
+
+code pre {
+    overflow-x: auto;
+    padding: 15px;
+}
+
+@media (min-width: 851px) {
+    #navbar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--nav-width);
+        overflow-y: auto;
+        overflow-x: hidden; 
+    }
+
+    #navbar ol {
+        font-size: 0.9em;
+    }
+
+    #main-doc {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: var(--nav-width);
+    }
+
+    body {
+        padding: 0 0 0 270px;
+    }
+}
+
+@media (max-width: 850px) {
+    #navbar {
+        width: 560px;
+        padding: 15px;
+    }
+
+    #main-doc {
+        margin: 0 auto;
+    }
+}
+
+.HR2, h2, .HR3, h3, .HR4, h4 {
+    margin: 25px 0 15px 25px;
+    font-weight: 600;
+} 
+
+.HR2, h2 {
+    font-size: 2.4em;
+}
+
+.HR3, h3 {
+    font-size: 1.9em;
+}
+
+.HR4, h4 {
+    font-size: 1.5em;
+}
+
+.slanted {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}

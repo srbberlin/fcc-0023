@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+<head>
+  <title>Technical Documentation Page</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500|Scheherazade|Spectral" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="js/main.js" ></script>
+</head>
+
+<body">
+  <nav id="navbar">
+    <header><span class="HR3">Contents</span></header>
+    <ol>
+      <li><a class="nav-link" href="#Documentation">Documentation</a></li>
+      <li><a class="nav-link" href="#Global_Options">Global Options</a></li>
+      <li><a class="nav-link" href="#Validation_Messages">Validation Messages</a>
+        <ol>
+          <li><a class="nav-link" href="#Message_Interpolation">Message Interpolation</a></li>
+          <li><a class="nav-link" href="#Taking_over:_functions_as_validationMessages">Taking over: functions as
+              validationMessages</a></li>
+        </ol>
+      </li>
+      <li><a class="nav-link" href="#Custom_Validation">Custom Validation</a>
+        <ol>
+          <li><a class="nav-link" href="#Inject_errors_into_form,_aka_backend_validation">Inject errors into form, aka backend validation</a></li>
+          <li><a class="nav-link" href="#Using_ngModelController">Using ngModelController</a></li>
+          <ol>
+            <li><a class="nav-link" href="#$validators">$validators</a></li>
+            <li><a class="nav-link" href="#$asyncValidators">$asyncValidators</a></li>
+          </ol>
+        </ol>
+      </li>
+      <li><a class="nav-link" href="#Form_defaults_in_schema">Form defaults in schema</a></li>
+      <li><a class="nav-link" href="#Form_types">Form types</a></li>
+      <li><a class="nav-link" href="#Default_form_types">Default form types</a></li>
+      <li><a class="nav-link" href="#Form_definitions">Form definitions</a></li>
+      <li><a class="nav-link" href="#Overriding_field_types_and_order">Overriding field types and order</a></li>
+      <li><a class="nav-link" href="#Standard_Options">Standard Options</a>
+        <ol>
+          <li><a class="nav-link" href="#Validation_Message">Validation Message</a></li>
+          <li><a class="nav-link" href="#onChange">onChange</a></li>
+          <li><a class="nav-link" href="#Inline_feedback_icons">Inline feedback icons</a></li>
+          <li><a class="nav-link" href="#ngModelOptions">ngModelOptions</a></li>
+          <li><a class="nav-link" href="#copyValueTo">copyValueTo</a></li>
+          <li><a class="nav-link" href="#condition">condition</a></li>
+          <li><a class="nav-link" href="#destroyStrategy">destroyStrategy</a></li>
+        </ol>
+      </li>
+      <li><a class="nav-link" href="#Specific_options_and_types">Specific options and types</a>
+        <ol>
+          <li><a class="nav-link" href="#input_group_addons">input group addons</a></li>
+          <li><a class="nav-link" href="#fieldset_and_section">fieldset and section</a></li>
+          <li><a class="nav-link" href="#select_and_checkboxes">select and checkboxes</a></li>
+          <li><a class="nav-link" href="#actions">actions</a></li>
+          <li><a class="nav-link" href="#button_and_submit">button and submit</a></li>
+          <li><a class="nav-link" href="#radios_and_radiobuttons">radios and radiobuttons</a></li>
+          <li><a class="nav-link" href="#help">help</a></li>
+          <li><a class="nav-link" href="#template">template</a></li>
+          <li><a class="nav-link" href="#tabs">tabs</a></li>
+          <li><a class="nav-link" href="#array">array</a></li>
+          <li><a class="nav-link" href="#tabarray">tabarray</a></li>
+          <ol>
+            <li><a class="nav-link" href="#Deprecation_Warning">Deprecation Warning</a></li>
+          </ol>
+        </ol>
+      </li>
+      <li><a class="nav-link" href="#Post_process_function">Post process function</a></li>
+      <li><a class="nav-link" href="#Events">Events</a>
+        <ol>
+          <li><a class="nav-link" href="#Manual_field_insertion">Manual field insertion</a></li>
+        </ol>
+      </li>
+      <li><a class="nav-link" href="#Deprecated_fields">Deprecated fields</a>
+        <ol>
+          <li><a class="nav-link" href="#conditional">conditional</a></li>
+        </ol>
+      </li>
+    </ol>
+
+  </nav>
+  <main id="main-doc">
+    <section id="Documentation" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Documentation</div>
+      </header>
+      <p>Nicklas Börjesson edited this page on 9 Apr 2016 · 6 revisions</p>
+      <p class="slanted">This is the reference documentation for the json-schema-form format.</p>
+      <p>It is <strong>work in progress</strong> and is being extracted from the functionality of angular-schema-form to
+        make it possible to use by implementations on all platforms. It still has several angular-specific elements that
+        is in the process of being removed.</p>
+      <p>If you are new to the format, please first read the <a class="internal present"
+          href="https://github.com/json-schema-form/json-schema-form/wiki/Introduction" target="_blank">introduction to
+          the format</a> first.</p>
+    </section>
+
+    <section id="Global_Options" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Global Options</div>
+      </header>
+      <p>This section still contains angular-specific information</p>
+      <p>Schema Form also have two options you can set globally via the <span class="pre">sf-options</span> attribute which should be
+          placed along side <span class="pre">sf-schema</span>.</p>
+      <p><span class="pre">sf-options</span> takes an object with the following possible attributes:</p>
+      <table>
+        <thead>
+          <tr>
+            <td>Attribute</td>
+            <td>Type</td>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>supressPropertyTitles</td>
+            <td>boolean</td>
+            <td>by default schema form uses the property name in the schema as a title if none is specified, set this to
+              true to disable that behavior</td>
+          </tr>
+          <tr>
+            <td>formDefaults</td>
+            <td>object</td>
+            <td>an object that will be used as a default for all form definitions</td>
+          </tr>
+          <tr>
+            <td>validationMessage</td>
+            <td>object or function</td>
+            <td>Object or a function that will be used as default validation message for all fields. See <a
+                href="#Validation_Messages">Validation Messages</a> for details.</td>
+          </tr>
+          <tr>
+            <td>setSchemaDefaults</td>
+            <td>boolean</td>
+            <td>Should schema defaults be set on model.</td>
+          </tr>
+          <tr>
+            <td>destroyStrategy</td>
+            <td>string</td>
+            <td>the default strategy to use for cleaning the model when a form element is removed. see <a
+                href="#destroyStrategy">destroyStrategy</a> below</td>
+          </tr>
+          <tr>
+            <td>pristine</td>
+            <td>Object <span class="pre">{errors ,success}</span></td>
+            <td>Sets if errors and success states should be visible when form field are $pristine. Default is <span class="pre">{errors:
+                true, success: true}</span></td>
+          </tr>
+          <tr>
+            <td>validateOnRender</td>
+            <td>boolean</td>
+            <td>Should form be validated on initial render? Default <span class="pre">false</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p><span class="slanted">formDefaults</span> is mostly useful for setting global <a href="#ngModelOptions">ngModelOptions</a>
+        i.e. changing the entire form to validate on blur.
+
+        Ex.
+      </p>
+      <code>
+                    <pre>
+&lt;div ng-controller="FormController"&gt;
+  &lt;form sf-schema="schema"
+    sf-form="form"
+    sf-model="model"
+    sf-options="{ formDefaults: { ngModelOptions: { updateOn: 'blur'<a href="#ngModelOptions"></a> }}}"&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+                    </pre><a href="#ngModelOptions"></a>
+                </code>
+    </section>
+
+    <section id="Validation_Messages" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Validation Messages</div>
+      </header>
+      <p class="slanted">
+        This section still contains angular-specific information
+      </p>
+      <p>
+        We use <a href="https://github.com/geraintluff/tv4" target="_blank">tv4</a> to validate the form and all of the validation messages match up <a href="https://github.com/geraintluff/tv4/blob/master/source/api.js" target="_blank">tv4 error codes</a>.
+      </p>
+      <p>
+        There are several ways to change the default validation messages.
+      </p>
+      <p>
+        Change the defaults in <span class="pre">sfErrorMessages</span> service via its provider. This will set the validation messages for all
+        instances of <span class="pre">sf-schema</span><br>
+        Use the global option <span class="pre">validationMessage</span><br>
+        Use the form field option <span class="pre">validationMessage</span><br>
+        If a specific validation error code can't be found in the form field option, schema form looks at the global
+        option, if none is there it looks at it's own defaults and if all fails it will instead use the the message
+        under the error code <span class="pre">'default'</span>
+      </p>
+      <p>
+        Ex of form field option.
+      </p>
+      <code>
+                    <pre>
+var form = [
+  &quot;address.zip&quot;,
+  {
+    key: &quot;address.street&quot;,
+    validationMessage: {
+      302: &quot;This field is like, uh, required?&quot;
+    }
+  }
+];                    
+                    </pre>
+                </code>
+      <p>
+        And of global options
+      </p>
+      <code>
+                    <pre>
+&lt;div ng-controller=&quot;FormController&quot;&gt;
+    &lt;form sf-schema=&quot;schema&quot;
+        sf-form=&quot;form&quot;
+        sf-model=&quot;model&quot;
+        sf-options=&quot;{ validationMessage: { 302: &#x27;Do not forget me!&#x27; }}&quot;
+    &gt;
+    &lt;&#x2F;form&gt;
+&lt;&#x2F;div&gt;
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Message_Interpolation" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Message Interpolation</div>
+      </header>
+      <p>Having a good validation message is hard, sometimes you need to reference the actual value, title, or
+        constraint that you hit. Schema Form supports interpolation of error messages to make this a little bit easier.
+      </p>
+      <p>The context variables available to you are:</p>
+      <table>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Value</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>error</td>
+            <td>The error code</td>
+          </tr>
+          <tr>
+            <td>title</td>
+            <td>Title of the field</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>The model value</td>
+          </tr>
+          <tr>
+            <td>viewValue</td>
+            <td>The view value (probably the one you want)</td>
+          </tr>
+          <tr>
+            <td>form</td>
+            <td>form definition object for this field</td>
+          </tr>
+          <tr>
+            <td>schema</td>
+            <td>schema for this field</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+var form = [
+  &quot;address.zip&quot;,{
+    key: &quot;address.street&quot;,
+    validationMessage: {
+      101: &#x27;Seriously? Value {{value}} totally less than {{schema.minimum}}, which is NOT OK.&#x27;,
+    }
+  }
+];
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Taking_over:_functions_as_validationMessages" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Taking over: functions as validationMessages</div>
+      </header>
+      <p>
+        If you really need to control the validaton messages and interpolation is not enough (like say your using Jed
+        for gettext translations) you can supply a function instead of a particular message or the entire
+        validationMessage object.
+      </p>
+      <p>
+        The should take one argument, and that is an object with the exact same properties as the context used for
+        interpolation, see table above.<br>
+        Ex.
+      </p>
+      <code>
+                    <pre>
+var form = [
+  &quot;address.zip&quot;,{
+    key: &quot;address.street&quot;,
+    validationMessage: {
+      302: function(ctx) {
+           return Jed.gettext( &#x27;This value is required.&#x27; );
+    },
+    }
+  }
+];
+                    </pre>                
+                </code>
+      <p>Or:</p>
+      <code>
+                    <pre>
+var form = [
+  &quot;address.zip&quot;, {
+    key: &quot;address.street&quot;,
+    validationMessage: function(ctx) {
+      return lookupMessage[ctx.error];
+    }
+  }
+];
+                    </pre>                
+                </code>
+    </section>
+
+    <section id="Custom_Validation" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Custom Validation</div>
+      </header>
+      <p>Sometimes the validation you want is tricky to express in a JSON Schema or Schema Form does not support it
+        (yet), like <span class="pre">anyOf</span> and <span class="pre">oneOf</span>.</p>
+      <p>Other times you really need to ask the backend, maybe to check that the a username is not already taken or some
+        other constraint that only the backend can know about.</p>
+    </section>
+
+    <section id="Inject_errors_into_form,_aka_backend_validation" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Inject errors into form, aka backend validation</div>
+      </header>
+      <p>To support validation outside of the form, most commonly on the backend, schema form lets you injecting
+        arbitrary validationMessages to any field and setting it's validity.</p>
+      <p>This is done via an event that starts with <span class="pre">schemaForm.error.</span> and ends with the key to the field. It also takes
+        two arguments, the first being the error code, the second being either a validation message or a boolean that
+        sets validity, specifying a validation message automatically sets the field to invalid.</p>
+      <p>So lets do an example, say you have a form with a text field <span class="pre">name</span>:</p>
+      <p>Schema</p>
+      <code>
+                    <pre>
+{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  }
+}      
+                    </pre>
+                </code>
+      <p>Form</p>
+      <code>
+                    <pre>
+[
+  &quot;name&quot;
+]
+                    </pre>
+                </code>
+      <p>To inject an error message and set that forms validity via <a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController" rel="nofollow" target="_blank">ngModelController.$setValidity</a> broadcast an event
+        with the name <span class="pre">schemaForm.error.name</span> with name/code for the error and an optional validation message.</p>
+      <code>
+          <pre>
+scope.$broadcast(
+  'schemaForm.error.name',
+  'usernameAlreadyTaken',
+  'The username is already taken');
+          </pre>
+      </code>
+      <p>This will invalidate the field and therefore the form and show the error message where it normally pops up,
+        under the field for instance.</p>
+      <p>There is a catch though, schema form can't know when this field is valid so you have to tell it by sending an
+        event again, this time switch out the validation message for validity of the field, i.e. <span class="pre">true</span>.</p>
+      <code>
+          <pre>
+scope.$broadcast(
+  'schemaForm.error.name',
+  'usernameAlreadyTaken',
+  true);
+          </pre>    
+      </code>
+      <p>You can also pre-populate the validation messages if you don't want to send them in the event.</p>
+      <p>Form</p>
+      <code>
+        <pre>
+[
+  {
+    &quot;key&quot;: &quot;name&quot;,
+      &quot;validationMessages&quot;: {
+      &quot;userNameAlreadyTaken&quot;
+    }
+  }
+]
+        </pre>
+      </code>
+      <code>
+        <pre>
+          scope.$broadcast('schemaForm.error.name','usernameAlreadyTaken',false);
+        </pre>
+      </code>
+      <p>You can even trigger standard tv4 error messages, just prefix the error code with <span class="pre">tv4-</span></p></p>
+      <code>
+        <pre>
+//Shows the "Required" error message
+$broadcast('schemaForm.error.name',
+  'tv4-302',
+  false);
+        </pre>
+      </code>
+    </section>
+
+    <section id="Using_ngModelController" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Using ngModelController</div>
+      </header>
+      <p>Another way to validate your fields is to use Angulars built in support for validator functions and async
+        validators via the <a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController" rel="nofollow" target="_blank">ngModelController</a>. See Angular docs for details.</p>
+      <p>Schema Form can expose the <span class="pre">ngModelController</span> on a field for a function supplied with the form definition. Or
+        you can use a shorthand by adding <span class="pre">$validators</span> and <span class="pre">$asyncValidators</span> objects as well as <span class="pre">$viewChangeListener</span>,
+        <span class="pre">$parsers</span> and <span class="pre">$formatters</span> arrays to your form object and they will be picked up.</p>
+      <p>Note that <span class="pre">$validators</span> and <span class="pre">$asyncValidators</span> are Angular 1.3+ only.</p>
+      </p>
+    </section>
+
+    <section id="$validators" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR4">$validators</div>
+      </header>
+      <p>Custom validator functions are added to the <span class="pre">$validators</span> object and their attribute name is the error code, so
+        to specify a error message you also need to use.</p>
+      <code>
+                    <pre>
+[
+  {
+    key: &#x27;name&#x27;,
+    validationMessage: {
+      &#x27;noBob&#x27;: &#x27;Bob is not OK! You here me?&#x27;
+    },
+    $validators: {
+      noBob: function(value) {
+        if (angular.isString(value) &amp;&amp;
+            value.indexOf(&#x27;Bob&#x27;) !== -1) {
+          return false;
+        }
+        return true
+      }
+    }
+  }
+]
+                  </pre>
+                </code>
+    </section>
+
+    <section id="$asyncValidators" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR4">$asyncValidators</div>
+      </header>
+      <p>Async validators are basically the same as their synchronous counterparts, but instead you return a promise
+        that resolves or rejects.</p>
+      <code>
+                    <pre>
+[
+  {
+    key: &#x27;name&#x27;,
+    validationMessage: {
+      &#x27;noBob&#x27;: &#x27;Bob is not OK! You here me?&#x27;
+    },
+    $asyncValidators: {
+      noBob: function(value) {
+        var deferred = $q.defer();
+        $timeout( function(){
+          if (angular.isString(value) &amp;&amp;
+              value.indexOf(&#x27;bob&#x27;) !== -1) {
+            deferred.reject();
+          } else {
+            deferred.resolve();
+          }
+        }, 500);
+        return deferred.promise;
+      }
+    }
+  }
+]
+                  </pre>
+                </code>
+    </section>
+
+    <section id="Form_defaults_in_schema" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Form defaults in schema</div>
+      </header>
+      <p>Its recommended to split presentation and validation into a form definition and a json schema. But if you for
+        some reason can't do this, but do have the power to change the schema, you can supply form default values within
+        the schema using the custom attribute <span class="pre">x-schema-form</span>. <span class="pre">x-schema-form</span> should be a form object and acts as form
+        definition defaults for that field.</p>
+
+      <p>Example schema.</p>
+      <code>
+                  <pre>
+{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;comment&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;title&quot;: &quot;Comment&quot;,
+      &quot;x-schema-form&quot;: {
+        &quot;type&quot;: &quot;textarea&quot;,
+        &quot;placeholder&quot;: &quot;Don&#x27;t hold back&quot;
+      }
+    }
+  }
+}
+                  </pre>
+                </code>
+    </section>
+
+    <section id="Form_types" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Form types</div>
+      </header>
+      <p>Schema Form currently supports the following form field types out of the box:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <td>Type</td>
+            <td>Becomes</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>fieldset</td>
+            <td>a fieldset with legend</td>
+          </tr>
+          <tr>
+            <td>section</td>
+            <td>just a div</td>
+          </tr>
+          <tr>
+            <td>actions</td>
+            <td>horizontal button list, can only submit and buttons as items</td>
+          </tr>
+          <tr>
+            <td>text</td>
+            <td>input with type text</td>
+          </tr>
+          <tr>
+            <td>textarea</td>
+            <td>a textarea</td>
+          </tr>
+          <tr>
+            <td>number</td>
+            <td>input type number</td>
+          </tr>
+          <tr>
+            <td>password</td>
+            <td>input type password</td>
+          </tr>
+          <tr>
+            <td>checkbox</td>
+            <td>a checkbox</td>
+          </tr>
+          <tr>
+            <td>checkboxes</td>
+            <td>list of checkboxes</td>
+          </tr>
+          <tr>
+            <td>select</td>
+            <td>a select (single value)</td>
+          </tr>
+          <tr>
+            <td>submit</td>
+            <td>a submit button</td>
+          </tr>
+          <tr>
+            <td>button</td>
+            <td>a button</td>
+          </tr>
+          <tr>
+            <td>radios</td>
+            <td>radio buttons</td>
+          </tr>
+          <tr>
+            <td>radios-inline</td>
+            <td>radio buttons in one line</td>
+          </tr>
+          <tr>
+            <td>radiobuttons</td>
+            <td>radio buttons with bootstrap buttons</td>
+          </tr>
+          <tr>
+            <td>help</td>
+            <td>insert arbitrary html</td>
+          </tr>
+          <tr>
+            <td>template</td>
+            <td>insert an angular template</td>
+          </tr>
+          <tr>
+            <td>tab</td>
+            <td>tabs with content</td>
+          </tr>
+          <tr>
+            <td>array</td>
+            <td>a list you can add, remove and reorder</td>
+          </tr>
+          <tr>
+            <td>tabarray</td>
+            <td>a tabbed version of array</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>More field types can be added, for instance a "datepicker" type can be added by including the <a href="https://github.com/Textalk/angular-schema-form-datepicker" target="_blank">datepicker addon</a>,
+        see the <a href="http://github.com/textalk/angular-schema-form" rel="nofollow" target="_blank">front page</a> for an updated list.</p>
+    </section>
+
+    <section id="Default_form_types" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Default form types</div>
+      </header>
+      <p>Schema Form defaults to certain types of form fields depending on the schema for a property.</p>
+      <table>
+        <thead>
+          <td>Schema</td>
+          <td>Form</td>
+          <td>type</td>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"type":</td>
+            <td>"string"</td>
+            <td>text</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"number"</td>
+            <td>number</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"integer"</td>
+            <td>number</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"boolean"</td>
+            <td>checkbox</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"object"</td>
+            <td>fieldset</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td> "string" and a "enum"</td>
+            <td>select</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"array" and a "enum" in array type</td>
+            <td>checkboxes</td>
+          </tr>
+          <tr>
+            <td>"type":</td>
+            <td>"array"</td>
+            <td>array</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="Form_definitions" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Form definitions</div>
+      </header>
+      <p>If you don't supply a form definition, it will default to rendering the after the defaults taken from the
+        schema.</p>
+      <p>A form definition is a list where the items can be</p>
+      <ul>
+        <li>A star, <span class="pre">"*"</span></li>
+        <li>A string with the dot notated name/path to a property, <span class="pre">"name"</span></li>
+        <li>An object with that defines the options for a form field., <span class="pre">{ key: "name" }</span></li>
+      </ul>
+      <p>The star, <span class="pre">"*"</span> means "use the default for the entire schema" and is useful when you want the defaults plus an
+        additional button.</p>
+      <p>ex.</p>
+      <code>
+                  <pre>
+  [
+    &quot;*&quot;,
+    { type: &#x27;submit&#x27;, title: &#x27;Save&#x27; }
+  ]
+                  </pre>
+                </code>
+      <p>The string notation, <span class="pre">"name"</span>, is just a shortcut for the object notation <span class="pre">{ key: "name" }</span> where key denotes what
+        part of the schema we're creating a form field for.</p>
+    </section>
+
+    <section id="Overriding_field_types_and_order" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Overriding field types and order</div>
+      </header>
+      <p>The order of the fields is technically undefined since the order of attributes on an javascript object (which
+        the schema ends up being) is undefined. In practice it kind of works though. If you need to override the order
+        of the forms, or just want to be sure, specify a form definition.</p>
+      <p>ex.</p>
+      <code>
+                  <pre>
+var schema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;surname&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;firstname&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+  }
+}
+
+[
+  &quot;firstname&quot;,
+  &quot;surname&quot;
+]
+                  </pre>
+                </code>
+      <p>You can also override fields to force the type and supply other options: ex.</p>
+      <code>
+                  <pre>
+var schema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;surname&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;firstname&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+  }
+}
+
+[
+  &quot;firstname&quot;,
+  {
+    key: &quot;surname&quot;,
+    type: &quot;select&quot;,
+    titleMap: [
+      { value: &quot;Andersson&quot;, name: &quot;Andersson&quot; },
+      { value: &quot;Johansson&quot;, name: &quot;Johansson&quot; },
+      { value: &quot;other&quot;, name: &quot;Something else...&quot;}
+    ]
+  }
+]      
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Standard_Options" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Standard Options</div>
+      </header>
+      <p>General options most field types can handle:</p>
+      <code>
+                    <pre>
+{
+  key: &quot;address.street&quot;,          &#x2F;&#x2F; The dot notatin to the attribute on the model
+  type: &quot;text&quot;,                   &#x2F;&#x2F; Type of field
+  title: &quot;Street&quot;,                &#x2F;&#x2F; Title of field, taken from schema if available
+  notitle: false,                 &#x2F;&#x2F; Set to true to hide title
+  description: &quot;Street name&quot;,     &#x2F;&#x2F; A description, taken from schema if available, can be HTML
+  validationMessage: &quot;Oh noes, please write a proper address&quot;, &#x2F;&#x2F; A custom validation error message
+  onChange: &quot;valueChanged(form.key,modelValue)&quot;,               &#x2F;&#x2F; onChange event handler, expression or function
+  feedback: false,                &#x2F;&#x2F; Inline feedback icons
+  disableSuccessState: false,     &#x2F;&#x2F; Set true to NOT apply &#x27;has-success&#x27; class to a field that was validated successfully
+  disableErrorState: false,       &#x2F;&#x2F; Set true to NOT apply &#x27;has-error&#x27; class to a field that failed validation
+  placeholder: &quot;Input...&quot;,        &#x2F;&#x2F; placeholder on inputs and textarea
+  ngModelOptions: { ... },        &#x2F;&#x2F; Passed along to ng-model-options
+  readonly: true,                 &#x2F;&#x2F; Same effect as readOnly in schema. Put on a fieldset or array
+                                  &#x2F;&#x2F; and their items will inherit it.
+  htmlClass: &quot;street foobar&quot;,     &#x2F;&#x2F; CSS Class(es) to be added to the container div
+  fieldHtmlClass: &quot;street&quot;        &#x2F;&#x2F; CSS Class(es) to be added to field input (or similar)
+  labelHtmlClass: &quot;street&quot;        &#x2F;&#x2F; CSS Class(es) to be added to the label of the field (or similar)
+  copyValueTo: [&quot;address.street&quot;];&#x2F;&#x2F; Copy values to these schema keys.
+  condition: &quot;person.age &amp;lt; 18&quot; &#x2F;&#x2F; Show or hide field depending on an angular expression
+  destroyStrategy: &quot;remove&quot;       &#x2F;&#x2F; One of &quot;null&quot;, &quot;empty&quot; , &quot;remove&quot;, or &#x27;retain&#x27;. Changes model on $destroy event. default is &quot;remove&quot;.
+}      
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Validation_Message" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Validation Message</div>
+      </header>
+      <p>The validation message can be a string, an object with error codes as key and messages as values or a custom
+        message function, see <a href="#Validation_Messages">Validation Messages</a> for the details.</p>
+    </section>
+
+    <section id="Inline_feedback_icons" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Inline feedback icons</div>
+      </header>
+      <p>input and textarea based fields get inline status icons by default. A check when everything is valid and a
+        cross when there are validation errors.</p>
+      <p>This can be turned off or configured to other icons. To turn off just set <span class="pre">feedback</span> to false. If set to a string
+        that string is evaluated by a <span class="pre">ngClass</span> in the decorators scope. If not set att all the default value is <span class="pre">{
+          'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-remove': hasError() }</span></p>
+      <p>ex. </p>
+      <p>displaying an asterisk on required fields</p>
+      <code>
+                    <pre>
+$scope.form = [
+  {
+    key: &quot;name&quot;,
+    feedback: &quot;{
+      &#x27;glyphicon&#x27;: true,
+      &#x27;glyphicon-asterisk&#x27;: 
+        form.required &amp;&amp;
+        !hasSuccess() &amp;&amp;
+        !hasError(),
+      &#x27;glyphicon-ok&#x27;: hasSuccess(),
+      &#x27;glyphicon-remove&#x27;: hasError() 
+    }&quot;
+  }
+]
+                    </pre>
+                </code>
+      <p>Useful things in the decorators scope are</p>
+      <table>
+        <thead>
+          <td>Name</td>
+          <td>Description</td>
+        </thead>
+        <tbody>
+          <tr>
+            <td>hasSuccess()</td>
+            <td>true if field is valid and not pristine</td>
+          </tr>
+          <tr>
+            <td>hasError()</td>
+            <td>true if field is invalid and not pristine</td>
+          </tr>
+          <tr>
+            <td>ngModel</td>
+            <td>The controller of the ngModel directive, ex. ngModel.$valid</td>
+          </tr>
+          <tr>
+            <td>form</td>
+            <td>The form definition for this field</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="onChange" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">onChange</div>
+      </header>
+      <p>The <span class="pre">onChange</span> option can be used with most fields and its value should be either an angular expression, as a
+        string, or a function. If its an expression it will be evaluated in the parent scope of the <span class="pre">sf-schema</span> directive
+        with the special locals <span class="pre">modelValue</span> and <span class="pre">form</span>. If its a function that will be called with <span class="pre">modelValue</span> and <span class="pre">form</span> as
+        first and second arguments.</p>
+      <p>ex.</p>
+      <code>
+                    <pre>
+$scope.form = [
+  {
+    key: &quot;name&quot;,
+    onChange: &quot;updated(modelValue,form)&quot;
+  },
+  {
+    key: &quot;password&quot;,
+    onChange: function(modelValue,form) {
+      console.log(&quot;Password is&quot;,modelValue);
+    }
+  }
+];                    
+                    </pre>
+                </code>
+    </section>
+
+    <section id="ngModelOptions" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">ngModelOptions</div>
+      </header>
+      <p>Angular 1.3 introduces a new directive, <span class="slated">ngModelOptions</span>, which let's you set a couple of options that change how
+        the directive <span class="slanted">ng-model</span> works. Schema Form uses <span class="slanted">ng-model</span> to bind against fields and therefore changing theses
+        options might be useful for you.</p>
+      <p>One thing you can do is to change the update behavior of <span class="slanted">ng-model</span>, this is how you get form fields that
+        validate on blur instead of directly on change.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+{
+  key: &quot;email&quot;,
+  ngModelOptions: { updateOn: &#x27;blur&#x27; }
+}
+                    </pre>
+                </code>
+      <p>See Global Options for an example how you set entire form to validate on blur.</p>
+    </section>
+
+    <section id="copyValueTo" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">copyValueTo</div>
+      </header>
+      <p>This option has a very specific use case. Imagine you have the same option in several places, but you want them
+        to be controlled from just one field. You specify what keys the value should be copied to, and the <span class="slanted">viewValue</span>
+        will be copied to these keys on the model. <span class="bold">Note: changing the model directly will not copy the value, it's
+        intended for copying user input.</span> The receiving fields can be shown, but the intent for them is to be hidden.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+{
+  key: &quot;email.main&quot;,
+  copyValueTo: [&quot;email.confirm&quot;, &quot;other.email&quot;]
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="condition" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">condition</div>
+      </header>
+      <p>The <span class="pre">condition</span> option lets you hide or show a field depending on an angular expression. Beneath the surface it
+        uses <span class="pre">ng-if</span> so the hidden field is not part of the form.</p>
+      <p><span class="pre">condition</span> should be a string with an angular expression. If that expression evaluates as true the field will
+        be rendered into the DOM otherwise not. The expression is evaluated in the parent scope of the <span class="pre">sf-schema</span>
+        directive (the same as onClick on buttons) but with access to the current model, current model value and current
+        array index under the name <span class="pre">model</span>, <span class="pre">modelValue</span> and <span class="pre">arrayIndex</span>. This is useful for hiding/showing parts of a form
+        depending on another form control.</p>
+      <p>ex. A checkbox that shows an input field for a code when checked</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.person = {}
+
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;title&quot;: &quot;Name&quot;
+      },
+      &quot;eligible&quot;: {
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;title&quot;: &quot;Eligible for awesome things&quot;
+      },
+      &quot;code&quot;: {
+        &quot;type&quot;:&quot;string&quot;
+        &quot;title&quot;: &quot;The Code&quot;
+      }
+    }
+  }
+
+  $scope.form = [
+    &quot;name&quot;,
+    &quot;eligible&quot;,
+    {
+      &quot;key&quot;: &quot;code&quot;,
+      &quot;condition&quot;: &quot;person.eligible&quot;,
+                             &#x2F;&#x2F;or &quot;model.eligible&quot;
+    }
+  ]
+}
+                   </pre>
+                </code>
+      <p>Note that angular's two-way binding automatically will update the conditional field, no need for event handlers
+        and such. The condition need not reference a model value it could be anything on scope.</p>
+      <p>The same example, but inside an array:</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.persons = []
+
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;persons&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;name&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;title&quot;: &quot;Name&quot;
+            },
+            &quot;eligible&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;,
+              &quot;title&quot;: &quot;Eligible for awesome things&quot;
+            },
+            &quot;code&quot;: {
+              &quot;type&quot;:&quot;string&quot;
+              &quot;title&quot;: &quot;The Code&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  $scope.form = [
+    {
+      &quot;key&quot;: &quot;persons&quot;,
+      &quot;items&quot;: [
+        &quot;persons[].name&quot;,
+        &quot;persons[].eligible&quot;,
+        {
+          key: &quot;persons[].code&quot;,
+          condition: &quot;persons[arrayIndex].eligible&quot;,
+                     &#x2F;&#x2F;or &quot;model[arrayIndex].eligable&quot;
+        }
+      ]
+    }
+  ]
+}      
+                    </pre>
+                </code>
+      <p>The same example, but inside an array:</p>
+      <code>
+                  <pre>
+function FormCtrl($scope) {
+  $scope.persons = []
+
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;persons&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;name&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;title&quot;: &quot;Name&quot;
+            },
+            &quot;eligible&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;,
+              &quot;title&quot;: &quot;Eligible for awesome things&quot;
+            },
+            &quot;code&quot;: {
+              &quot;type&quot;:&quot;string&quot;
+              &quot;title&quot;: &quot;The Code&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  $scope.form = [
+    {
+      &quot;key&quot;: &quot;persons&quot;,
+      &quot;items&quot;: [
+        &quot;persons[].name&quot;,
+        &quot;persons[].eligible&quot;,
+        {
+          key: &quot;persons[].code&quot;,
+          condition: &quot;persons[arrayIndex].eligible&quot;, &#x2F;&#x2F;or &quot;model[arrayIndex].eligable&quot;
+        }
+      ]
+    }
+  ]
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="destroyStrategy" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">destroyStrategy</div>
+      </header>
+      <p>By default, when a field is removed from the DOM and the <span class="pre">$destroy</span> event is broadcast, this happens if you use
+        the <span class="pre">condition</span> option, the schema-validate directive will update the model to set the field value to <span class="pre">undefined</span>.
+        This can be overridden by setting the destroyStrategy on a field, or as a global option, to one of the strings
+        <span class="pre">"null"</span>, <span class="pre">"empty"</span> , <span class="pre">"remove"</span>, or <span class="pre">"retain"</span>.</p>
+      <ul>
+        <li><span class="pre">"null"</span> means that model values will be set to <span class="pre">null</span> instead of being removed.</li>
+        <li><span class="pre">"empty"</span> means empty strings, <span class="pre">""</span>, for model values that has the <span class="pre">string</span> type, <span class="pre">{}</span> for model values with <span class="pre">object</span>
+          type and <span class="pre">[]</span> for <span class="pre">array</span> type. All other types will be treated as <span class="pre">"remove"</span>.</li>
+        <li>"remove" deletes the property. This is the default.</li>
+        <li><span class="pre">"retain"</span> keeps the value of the property event though the field is no longer in the form or being validated
+          before submit.</li>
+      </ul>
+      <p>If you'd like to set the destroyStrategy for an entire form, add it to the globalOptions</p>
+    </section>
+
+    <section id="Specific_options_and_types" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Specific options and types</div>
+      </header>
+    </section>
+
+    <section id="input_group_addons" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">input group addons</div>
+      </header>
+      <p><span class="slanted">input</span> and <span class="slanted">textarea</span> types can also have <a href="http://getbootstrap.com/components/#input-groups" rel="nofollow" target="_blank">bootstrap input groups</a>.</p>
+      <p>You can add them with the option <span class="pre">fieldAddonLeft</span> and <span class="pre">fieldAddonRight</span> which both takes a snippet of html.</p>
+      <code>
+                    <pre>
+[
+  {
+    &quot;key&quot;: &quot;email&quot;
+    &quot;fieldAddonLeft&quot;: &quot;@&quot;
+  }
+]    
+                    </pre>
+                </code>
+    </section>
+
+    <section id="fieldset_and_section" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">fieldset and section</div>
+      </header>
+      <p><span class="slanted">fieldset</span> and <span class="slanted">section</span> doesn't need a key. You can create generic groups with them. They do need a list of <span class="pre">items</span>
+        to have as children.</p>
+      <code>
+                    <pre>
+{
+  type: &quot;fieldset&quot;,
+  items: [
+    &quot;name&quot;,
+    { key: &quot;surname&quot;, notitle: true }
+  ]
+}      
+                    </pre>
+                </code>
+    </section>
+
+    <section id="select_and_checkboxes" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">select and checkboxes</div>
+      </header>
+      <p><span class="slanted">select</span> and <span class="slanted">checkboxes</span> can take an attribute, <span class="pre">titleMap</span>, which defines a name and a value. The value is bound to
+        the model while the name is used for display. In the case of checkboxes the names of the <span class="pre">titleMap</span> can be HTML.
+      </p>
+      <p>A <span class="pre">titleMap</span> can be specified as either an object (same as in JSON Form), where the property is the value and the
+        value of that property is the name, or as a list of name-value objects. The latter is used internally and is the
+        recommended format to use. Note that when defining a <span class="pre">titleMap</span> as an object the value is restricted to strings
+        since property names of objects always is a string.</p>
+      <p>As a list:</p>
+      <code>
+                    <pre>
+{
+  type: &quot;select&quot;,
+  titleMap: [
+    { value: &quot;yes&quot;, name: &quot;Yes I do&quot; },
+    { value: &quot;no&quot;, name: &quot;Hell no&quot; }
+  ]
+}
+                    </pre>
+                </code>
+      <p>As an object:</p>
+      <code>
+                    <pre>
+{
+  type: &quot;select&quot;,
+  titleMap: {
+    &quot;yes&quot;: &quot;Yes I do&quot;,
+    &quot;no&quot;: &quot;Hell no&quot;
+  }
+}
+                    </pre>
+                </code>
+      <p>The <span class="slanted">select</span> can also take an optional <span class="pre">group</span> property in its <span class="pre">titleMap</span> that adds <span class="pre">&lt;optgroup&gt;</span> element to the
+        select.</p>
+      <code>
+                    <pre>
+{
+  type: &quot;select&quot;,
+  titleMap: [
+    { 
+      value: &quot;yes&quot;, name: &quot;Yes I do&quot;,
+      group: &quot;Boolean&quot;
+    },
+    { 
+      value: &quot;no&quot;, name: &quot;Hell no&quot;,
+      group: &quot;Boolean&quot;
+    },
+    {
+      value: &quot;no&quot;,
+      name: &quot;File Not Found&quot;,
+      group: &quot;Other&quot;
+    },
+  ]
+}            
+                    </pre>
+                </code>
+    </section>
+
+    <section id="actions" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">actions</div>
+      </header>
+      <p><span class="slanted">actions</span> behaves the same as fieldset, but can only handle buttons and submits as children.</p>
+      <code>
+                    <pre>
+{
+  type: &quot;actions&quot;,
+  items: [
+    {
+      type: &#x27;submit&#x27;,
+      title: &#x27;Ok&#x27;
+    },
+    {
+      type: &#x27;button&#x27;,
+      title: &#x27;Cancel&#x27;,
+      onClick: &quot;cancel()&quot;
+    }
+  ]
+}
+                    </pre>
+                </code>
+      <p>The submit and other buttons have btn-default as default. We can change this with <span class="pre">style</span> attribute:</p>
+      <code>
+                    <pre>
+{
+  type: &quot;actions&quot;,
+  items: [
+    {
+      type: &#x27;submit&#x27;,
+      style: &#x27;btn-success&#x27;,
+      title: &#x27;Ok&#x27;
+    },
+    {
+      type: &#x27;button&#x27;,
+      style: &#x27;btn-info&#x27;,
+      title: &#x27;Cancel&#x27;,
+      onClick: &quot;cancel()&quot;
+    }
+  ]
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="button_and_submit" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">button and submit</div>
+      </header>
+      <p><span class="slanted">button</span> and <span class="slanted">submit</span> can have a <span class="pre">onClick</span> attribute that either a function or a string with an angular expression,
+        as with <span class="pre">ng-click</span>. The expression is evaluated in the parent scope of the <span class="pre">sf-schema</span> directive.</p>
+      <code>
+                    <pre>
+[
+  { 
+    type: &#x27;submit&#x27;,
+    title: &#x27;Ok&#x27;,
+    onClick: function(){ ...  }
+  },
+  {
+    type: &#x27;button&#x27;,
+    title: &#x27;Cancel&#x27;,
+    onClick: &quot;cancel()&quot;
+  }
+]
+                    </pre>
+                </code>
+      <p>The submit and other buttons have <span class="pre">btn-default</span> as default. We can change this with <span class="pre">style</span> attribute:</p>
+      <code>
+                    <pre>
+[
+  {
+    type: &#x27;submit&#x27;,
+    style: &#x27;btn-warning&#x27;,
+    title: &#x27;Ok&#x27;,
+    onClick: function(){ ...  }
+  },
+  {
+    type: &#x27;button&#x27;,
+    style: &#x27;btn-danger&#x27;,
+    title: &#x27;Cancel&#x27;,
+    onClick: &quot;cancel()&quot;
+  }
+]
+                    </pre>
+                </code>
+      <p>A <span class="slanted">button</span> can also have optional icon classes:</p>
+      <code>
+                    <pre>
+[
+  {
+    type: &#x27;button&#x27;,
+    title: &#x27;Cancel&#x27;,
+    icon: &#x27;glyphicon glyphicon-icon-exclamation-sign&#x27;
+    onClick: &quot;cancel()&quot;
+  }
+]
+                    </pre>
+                </code>
+    </section>
+
+    <section id="radios_and_radiobuttons" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">radios and radiobuttons</div>
+      </header>
+      <p>Both type <span class="slanted" >radios</span> and <span class="slanted">radiobuttons</span> work the same way. They take a <span class="pre">titleMap</span> and renders ordinary radio buttons or
+        bootstrap 3 buttons inline. It's a cosmetic choice.</p>
+      <p>The <span class="pre">titleMap</span> is either a list or an object, see <a href="#select_and_checkboxes">select and checkboxes</a> for details. The "name" part in the
+        <span class="pre">titleMap</span> can be HTML.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      choice: {
+        type: &quot;string&quot;,
+        enum: [&quot;one&quot;,&quot;two&quot;]
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      key: &quot;choice&quot;,
+      type: &quot;radiobuttons&quot;,
+      titleMap: [
+        { value: &quot;one&quot;, name: &quot;One&quot; },
+        { value: &quot;two&quot;, name: &quot;More...&quot; }
+      ]
+    }
+  ];
+}
+                    </pre>
+                </code>
+      <p>The actual schema property it binds doesn't need to be a string with an enum. Here is an example creating a yes
+        no radio buttons that binds to a boolean.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      confirm: {
+        type: &quot;boolean&quot;,
+        default: false
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      key: &quot;confirm&quot;,
+      type: &quot;radios&quot;,
+      titleMap: [
+        {
+          value: false,
+          name: &quot;No I don&#x27;t understand these cryptic terms&quot;
+        },
+        {
+          value: true,
+          , 
+          name: &quot;Yes this makes perfect sense to me&quot;
+        }
+      ]
+    }
+  ];
+}
+                    </pre>
+                </code>
+      <p>With <span class="slanted">radiobuttons</span>, both selected and unselected buttons have <span class="pre">btn-default</span> as default. We can change this with
+        <span class="pre">style</span> attribute:</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      choice: {
+        type: &quot;string&quot;,
+        enum: [&quot;one&quot;,&quot;two&quot;]
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      key: &quot;choice&quot;,
+      type: &quot;radiobuttons&quot;,
+      style: {
+        selected: &quot;btn-success&quot;,
+        unselected: &quot;btn-default&quot;
+      },
+      titleMap: [
+      { value: &quot;one&quot;, name: &quot;One&quot; },
+      { value, &quot;two&quot;, name: &quot;More...&quot; }
+    ]
+  ];
+}                
+                    </pre>
+                </code>
+    </section>
+
+    <section id="help" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">help</div>
+      </header>
+      <p>Help fields is not really a field, but instead let's you insert arbitrary HTML into a form, suitable for help
+        texts with links etc.</p>
+      <p>The get a help field you need to specify the type <span class="pre">help</span> and have a html snippet as a string in the option
+        <span class="pre">helpvalue</span></p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      name: {
+        title: &quot;Name&quot;,
+        type: &quot;string&quot;
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      type: &quot;help&quot;,
+      helpvalue: &quot;&lt;h1&gt;Yo Ninja!&lt;&#x2F;h1&gt;&quot;
+    },
+    &quot;name&quot;
+  ];
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="template" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">template</div>
+      </header>
+      <p><span class="pre">template</span> fields are like help fields but instead of arbitrary html you can insert or refer to an angular
+        template to be inserted where the field should go. There is one catch though and that is that the scope is that
+        of the decorator directive and its inside the isolated scope of the <span class="pre">sf-schema</span> directive, so anything you like to
+        access in the template should be put on the form, which is available in template. It's basically a simple one
+        shot version of add-ons, so see the docs on <a href="https://github.com/json-schema-form/json-schema-form/wiki/extending.md" target="_blank">Extending Schema Form</a> for details on what is on scope and
+        what's up with <span class="pre">$$value$$</span></p>
+      <p>The <span class="pre">template</span> type should either have a <span class="pre">template</span> or a <span class="pre">templateUrl</span> option.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+
+  $scope.form = [
+    {
+      type: &quot;template&quot;,
+      template: &#x27;&lt;h1 ng-click=&quot;form.foo()&quot;&gt;
+                Yo {{form.name}}!&lt;&#x2F;h1&gt;&#x27;,
+      name: &#x27;Ninja&#x27;,
+      foo: function() { console.log(&#x27;oh noes!&#x27;); }
+    },
+    {
+      type: &quot;template&quot;,
+      templateUrl: &quot;templates&#x2F;foo.html&quot;,
+      myFavouriteVariable: &#x27;OMG!!&#x27;
+    }
+  ];
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="tabs" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">tabs</div>
+      </header>
+      <p>The <span class="pre">tabs</span> form type lets you split your form into tabs. It is similar to <span class="pre">fieldset</span> in that it just changes the
+        presentation of the form. <span class="pre">tabs</span> takes a option, also called <span class="pre">tabs</span>, that is a list of tab objects. Each tab object
+        consist of a <span class="slanted">title</span> and a <span class="slanted">items</span> list of form objects.</p>
+      <p>Ex.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      name: {
+        title: &quot;Name&quot;,
+        type: &quot;string&quot;
+      },
+      nick: {
+        title: &quot;Nick&quot;,
+        type: &quot;string&quot;
+      }
+      alias: {
+        title: &quot;Alias&quot;,
+        type: &quot;string&quot;
+      }
+      tag: {
+        title: &quot;Tag&quot;,
+        type: &quot;string&quot;
+      }
+    }
+  };
+
+  $scope.form = [
+    &quot;name&quot;,
+    {
+      type: &quot;tabs&quot;,
+      tabs: [
+        {
+          title: &quot;Tab 1&quot;,
+          items: [
+            &quot;nick&quot;,
+            &quot;alias&quot;
+          ]
+        },
+        {
+          title: &quot;Tab 2&quot;,
+          items: [
+            &quot;tag&quot;
+          ]
+        }
+      ]
+    }
+  ];
+}                
+                    </pre>
+                </code>
+    </section>
+
+    <section id="array" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">array</div>
+      </header>
+      <p>The <span class="pre">array</span> form type is the default for the schema type <span class="pre">array</span>. The schema for an array has the property <span class="pre">"items"</span>
+        which in the JSON Schema specification can be either another schema (i.e. and object), or a list of schemas.
+        Only a schema is supported by Schema Form, and not the list of schemas.</p>
+      <p>The <span class="slanted">form</span> definition has the option <span class="pre">items</span> that should be a list of form objects.</p>
+      <p>The rendered list of subforms each have a <span class="slanted">"Remove"</span> button and at the bottom there is an <span class="slanted">"Add"</span> button. The
+        default <span class="slanted">"Add"</span> button has class btn-default and text Add. Both could be changed using attribute <span class="pre">add</span>, see example
+        below.</p>
+      <p>If you like to have drag and drop reordering of arrays you also need <span class="slanted"><a href="https://github.com/angular-ui/ui-sortable" target="_blank">ui-sortable</a></span> and its dependencies <a href="https://jqueryui.com/" target="_blank">jQueryUI</a>,
+        see <span class="slanted">ui-sortable</span> documentation for details of what parts of jQueryUI that is needed. You can also pass options to
+        the <span class="slanted">ui-sortable</span> directive by including a <span class="pre">sortOptions</span> key on the form object. Check the <span class="slanted">ui-sortable</span> documentation
+        for a complete list of available options. You can safely ignore these if you don't need the reordering.</p>
+      <p>In the form definition you can refer to properties of an array item by the empty bracket notation. In the key
+        simply end the name of the array with []</p>
+      <p>By default the array will start with one <span class="slanted">undefined</span> value so that the user is presented with one form element.
+        To suppress this behaviour, set the attribute <span class="pre">startEmpty</span> to <span class="pre">true</span>.</p>
+      <p>Given the schema:</p>
+      <code>
+                    <pre>
+{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;subforms&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;name&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;nick&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;emails&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+                    </pre>
+                </code>
+      <p>Then <span class="pre">subforms[].name</span> refers to the property name of any subform item, <span class="pre">subforms[].emails[]</span> refers to the subform
+        of emails. See example below for usage.</p>
+      <p>Single list of inputs example:</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    type: &quot;object&quot;,
+    properties: {
+      names: {
+        type: &quot;array&quot;,
+        items: {
+          title: &quot;Name&quot;,
+          type: &quot;string&quot;
+        }
+      }
+    }
+  };
+
+  $scope.form = [&#x27;*&#x27;];
+}
+                      </pre>
+                    </code>
+      <p>Example with sub form, note that you can get rid of the form field the object wrapping the subform fields gives
+        you per default by using the items option in the form definition, also example of <span class="pre">startEmpty</span>.</p>
+      <code>
+                      <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;subforms&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;name&quot;: { &quot;type&quot;: &quot;string&quot; },
+            &quot;nick&quot;: { &quot;type&quot;: &quot;string&quot; },
+            &quot;emails&quot;: {
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      key: &quot;subforms&quot;,
+      add: &quot;Add person&quot;,
+      style: {
+        add: &quot;btn-success&quot;
+      },
+      items: [
+        &quot;subforms[].nick&quot;,
+        &quot;subforms[].name&quot;,
+        &quot;subforms[].emails&quot;,
+      ],
+      startEmpty: true
+    }
+  ];
+}
+                    </pre>
+                </code>
+      <p>To suppress add and remove buttons set <span class="pre">add</span> to <span class="pre">null</span> and <span class="pre">remove</span> to <span class="pre">null</span>.</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.form = [
+    {
+      key: &quot;subforms&quot;,
+      add: null,
+      remove: null,
+      style: {
+        add: &quot;btn-success&quot;
+      },
+      items: [
+        &quot;subforms[].nick&quot;,
+        &quot;subforms[].name&quot;,
+        &quot;subforms[].emails&quot;,
+      ],
+    }
+  ];
+}                
+                    </pre>
+                </code>
+    </section>
+
+    <section id="tabarray" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">tabarray</div>
+      </header>
+      <p>The <span class="pre">tabarray</span> form type behaves the same way and has the same options as <span class="pre">array</span> but instead of rendering a list
+        it renders a tab per item in list.</p>
+      <p>By default the tabs are on the left side (follows the default in JSON Form), but with the option <span class="pre">tabType</span> you
+        can change that to either <span class="slanted"></span> or <span class="slanted">"right"</span> as well.</p>
+      <p>Every tab page has a <span class="slanted">"Remove"</span> button. The default <span class="slanted">"Remove"</span> button has class btn-default and text Remove. Both
+        could be changed using attribute <span class="pre">remove</span>, see example below.</p>
+      <p>In this case we have an <span class="slanted">"Add"</span> link, not an <span class="slanted">"Add"</span> button. Therefore, the attribute <span class="pre">add</span> only changes the text of
+        the link. See example below.</p>
+      <p>Bootstrap 3 doesn't have side tabs so to get proper styling you need to add the dependency
+        <a href="https://github.com/dbtek/bootstrap-vertical-tabs" target="_blank">bootstrap-vertical-tabs</a>. It is not needed for tabs on top.</p>
+      <p>The <span class="pre">title</span> option is a bit special in <span class="pre">tabarray</span>, it defines the title of the tab and it is interpolated so you
+        can use expression it. Its interpolated with two extra variables in context: <span class="bold">value</span> and <span class="bold">$index</span>, where value is
+        the <span class="bold">value</span> in the array (i.e. that tab) and <span class="bold">$index</span> the index.</p>
+      <p>You can include multiple expressions or mix expressions and text as needed: Ex:</p>
+      <code>
+                    <pre>
+{
+  &quot;form&quot;: [
+    {
+      &quot;type&quot;: &quot;tabarray&quot;,
+      &quot;title&quot;: &quot;My {{ value.name }} is:&quot;,
+    }
+  ]
+}
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Deprecation_Warning" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR4">Deprecation Warning</div>
+      </header>
+      <p>Before version 0.8.0 the entire title was evaluated as an expression and not interpolated. If you weren't using
+        expressions in your form titles then no changes are needed.</p>
+      <p>However, if your tabarray titles contain implicit Angular expressions like this:</p>
+      <code>
+                    <pre>
+{
+  &quot;form&quot;: [
+    {
+      &quot;type&quot;: &quot;tabarray&quot;,
+      &quot;title&quot;: &quot;value.name || &#x27;Tab &#x27;+$index&quot;,
+    }
+  ]
+}
+                    </pre>
+                </code>
+      <p>Then you should change this to explicit expressions by wrapping them with the Angular expression delimiter
+        "{{ }}":</p>
+      <code>
+                    <pre>
+{
+  &quot;form&quot;: [
+    {
+      &quot;type&quot;: &quot;tabarray&quot;,
+      &quot;title&quot;: &quot;{{ value.name || &#x27;Tab &#x27;+$index }}&quot;,
+    }
+  ]
+}
+                    </pre>
+                </code>
+      <p>Example with tabs on the top:</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;subforms&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;name&quot;: { &quot;type&quot;: &quot;string&quot; },
+            &quot;nick&quot;: { &quot;type&quot;: &quot;string&quot; },
+            &quot;emails&quot;: {
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  $scope.form = [
+    {
+      type: &quot;tabarray&quot;,
+      tabType: &quot;top&quot;,
+      title: &quot;{{value.nick || (&#x27;Tab &#x27;+$index)}}&quot;
+      key: &quot;subforms&quot;,
+      remove: &quot;Delete&quot;,
+      style: {
+        remove: &quot;btn-danger&quot;
+      },
+      add: &quot;Add person&quot;,
+      items: [
+        &quot;subforms[].nick&quot;,
+        &quot;subforms[].name&quot;,
+        &quot;subforms[].emails&quot;,
+      ]
+    }
+  ];
+}                
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Post_process_function" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Post process function</div>
+      </header>
+      <p>If you like to use <span class="pre">["*"]</span> as a form, or aren't in control of the form definitions but really need to change or
+        add something you can register a post process function with the <span class="pre">schemaForm</span> service provider. The post process
+        function gets one argument, the final form merged with the defaults from the schema just before it's rendered,
+        and should return a form.</p>
+      <p>Ex. Reverse all forms</p>
+      <code>
+                    <pre>
+angular.module(&#x27;myModule&#x27;, [&#x27;schemaForm&#x27;]).config(function(schemaFormProvider){
+
+  schemaFormProvider.postProcess(function(form){
+    form.reverse();
+    return form;
+  })
+});
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Events" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Events</div>
+      </header>
+      <p>Events are emitted or broadcast at various points in the process of rendering or validating the form. Below is
+        a list of these events and how they are propagated.</p>
+      <table>
+        <thead><tr><td>Event</td><td>When</td><td>Type</td><td>Arguments</td></tr></thead>
+        <tbody><tr><td>sf-render-finished</td><td>After form is rendered</td><td>emit</td><td>The sf-schema directives's element</td></tr></tbody>  
+      </table>
+      <p>Schema form also listens to events.</p>
+      <table>
+        <thead>
+          <tr><td>Event</td><td>What</td><td>Docs</td></tr>
+        </thead>
+        <tbody>
+          <tr><td>schemaFormValidate</td><td>Validates all fields</td><td>Handling Submit</td></tr>
+          <td>schemaFormRedraw</td><td>Redraws form</td><td>Updating Form</td>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="Manual_field_insertion" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">Manual field insertion</div>
+      </header>
+      <p>There is a limited feature for controlling manually where a generated field should go so you can ,as an
+        example, wrap it in custom html. Consider the feature experimental.</p>
+      <p>It has a number of drawbacks though.</p>
+      <ol>
+          <li>You can only insert fields that are in the root level of your form definition, i.e. not inside fieldset, arrays etc.</li>
+          <li>Generated fields are always last in the form so if you don't supply slots for all of your top level fields the rest goes below.</li>
+          <li>To match "keys" of forms we match against the internal array format, hence the key "name" becomes "['name']" and "foo.bar" becomes "['foo']['bar']"</li>    
+      </ol>
+      <p>Define "slots" for the generated field by adding an element with the attribute <span class="pre">sf-insert-field</span></p>
+      <p>ex.</p>
+      <code>
+                    <pre>
+$scope.form = [
+  &quot;name&quot;,
+  &quot;email&quot;,
+  &quot;comment&quot;
+]
+                    </pre>
+                </code>
+
+      <code>
+                    <pre>
+&lt;form
+  sf-model=&quot;model&quot;
+  sf-form=&quot;form&quot;
+  sf-schema=&quot;schema&quot;&gt;
+
+  &lt;em&gt;before&lt;&#x2F;em&gt;
+  &lt;div sf-insert-field=&quot;[&#x27;email&#x27;]&quot;&gt;&lt;&#x2F;div&gt;&lt;em&gt;after&lt;&#x2F;em&gt;
+
+  <!-- the rest of the form, i.e. name and comment will be generated here -->
+&lt;&#x2F;form&gt;                
+                    </pre>
+                </code>
+    </section>
+
+    <section id="Deprecated_fields" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR2">Deprecated fields</div>
+      </header>
+    </section>
+
+    <section id="conditional" class="main-section">
+      <header>
+        <hr><br>
+        <div class="HR3">conditional</div>
+      </header>
+      <p>The <span class="slanted">conditional</span> type is now deprecated since every form type now supports the form option <span class="pre">condition</span>.</p>
+      <p>A <span class="slanted">conditional</span> is exactly the same as a section, i.e. a <span class="pre">&lt;div&gt;</span> with other form elements in it, hence they
+        need an <span class="pre">items</span> property. They also need a condition which is a string with an angular expression. If that
+        expression evaluates as thruthy the <span class="slanted">conditional</span> will be rendered into the DOM otherwise not. The expression is
+        evaluated in the parent scope of the <span class="pre">sf-schema</span> directive (the same as onClick on buttons) but with access to the
+        current model and current array index under the name <span class="pre">model</span> and <span class="pre">arrayIndex</span>. This is useful for hiding/showing
+        parts of a form depending on another form control.</p>
+      <p>ex. A checkbox that shows an input field for a code when checked</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.person = {}
+
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;title&quot;: &quot;Name&quot;
+      },
+      &quot;eligible&quot;: {
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;title&quot;: &quot;Eligible for awesome things&quot;
+      },
+      &quot;code&quot;: {
+        &quot;type&quot;:&quot;string&quot;
+        &quot;title&quot;: &quot;The Code&quot;
+      }
+    }
+  }
+
+    $scope.form = [
+      &quot;name&quot;,
+      &quot;eligible&quot;,
+      {
+          type: &quot;conditional&quot;,
+          condition: &quot;model.person.eligible&quot;,
+          items: [
+            &quot;code&quot;
+          ]
+      }
+    ]
+  }
+                    </pre>
+                </code>
+      <p>Note that angular's two-way binding automatically will update the conditional block, no need for event handlers
+        and such. The condition need not reference a model value it could be anything in scope.</p>
+      <p>The same example, but inside an array:</p>
+      <code>
+                    <pre>
+function FormCtrl($scope) {
+  $scope.persons = []
+
+  $scope.schema = {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;persons&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;name&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;title&quot;: &quot;Name&quot;
+            },
+            &quot;eligible&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;,
+              &quot;title&quot;: &quot;Eligible for awesome things&quot;
+            },
+            &quot;code&quot;: {
+              &quot;type&quot;:&quot;string&quot;
+              &quot;title&quot;: &quot;The Code&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  $scope.form = [
+    {
+      &quot;key&quot;: &quot;persons&quot;,
+      &quot;items&quot;: [
+        &quot;persons[].name&quot;,
+        &quot;persons[].eligible&quot;,
+        {
+          type: &quot;conditional&quot;,
+          condition: &quot;persons[arrayIndex].eligible&quot;,
+                     &#x2F;&#x2F;or &quot;model.eligable&quot;
+          items: [
+            &quot;persons[].code&quot;
+          ]
+        }
+      ]
+    }
+  ]
+}
+                    </pre>
+                </code>
+      <p>Note that arrays inside arrays won't work with conditional.</p>
+    </section>
+  </main>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+
+</html>
