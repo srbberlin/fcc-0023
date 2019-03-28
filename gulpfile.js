@@ -1,22 +1,31 @@
 const gulp = require('gulp')
-const sass = require('gulp-sass')
-const sourcemaps = require('gulp-sourcemaps')
-const babel = require('gulp-babel')
+//const sass = require('gulp-sass')
+//const sourcemaps = require('gulp-sourcemaps')
+//const babel = require('gulp-babel')
 const browserSync = require('browser-sync')
 const del = require('del')
 
 var config = {
+
   cssin:    __dirname + '/src/css/**/*.css',
   jsin:     __dirname + '/src/js/**/*.js',
   htmlin:   __dirname + '/src/html/**/*.html',
   assetsin: __dirname + '/src/assets/**/*',
   cssout:   __dirname + '/docs/css/',
   jsout:    __dirname + '/docs/js/',
-  htmlout:  __dirname + '/docs/'
+  htmlout:  __dirname + '/docs'
+
+  //cssin:    'src/css/**/*.css',
+  //jsin:     'src/js/**/*.js',
+  //htmlin:   'src/html/**/*.html',
+  //assetsin: 'src/assets/**/*',
+  //cssout:   'docs/css/',
+  //jsout:    'docs/js/',
+  //htmlout:  'docs'
 }
 
 function clean () {
-  return del([config.htmlout + '*'])
+  return del([config.htmlout + '/*'])
 }
 
 function reload (cb) {
@@ -55,7 +64,6 @@ function serve () {
   browserSync({
     server: config.htmlout
   })
-
   gulp.watch(config.jsin, gulp.series(babl, reload))
   gulp.watch(config.cssin, gulp.series(css, reload))
   gulp.watch(config.htmlin, gulp.series(html, reload))
@@ -68,4 +76,5 @@ function build (cb) {
 
 exports.build = build
 exports.clean = clean
+exports.reload = reload
 exports.default = gulp.series(build, serve)
